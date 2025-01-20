@@ -18,7 +18,9 @@ pipeline {
             steps {
                 script {
                     withDockerRegistry(credentialsId: 'docker-creds', toolName: 'docker') {
-                        sh "docker push revanthreddych/recommendationservice:latest "
+                        sh "docker push revanthreddych/recommendationservice:latest"
+                         sh "docker rmi adijaiswal/recommendationservice:latest"
+                        sh "docker rmi revanthreddych/recommendationservice:latest"
                     }
                 }
             }
