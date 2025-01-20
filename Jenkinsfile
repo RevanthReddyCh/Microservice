@@ -8,7 +8,7 @@ pipeline {
                     withDockerRegistry(credentialsId: 'docker-creds', toolName: 'docker') {
                          sh "docker pull adijaiswal/paymentservice:latest"
                         sh "docker tag adijaiswal/paymentservice:latest revanthreddych/paymentservice:latest"
-                        sh "docker build -t revanthreddych/paymentservice:latest ."
+                        sh "docker build --no-cache -t revanthreddych/paymentservice:latest ."
                     }
                 }
             }
