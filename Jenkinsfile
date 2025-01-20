@@ -5,8 +5,10 @@ pipeline {
         stage('Build & Tag Docker Image') {
             steps {
                 script {
-                    withDockerRegistry(credentialsId: 'docker-cred', toolName: 'docker') {
-                        sh "docker build -t adijaiswal/recommendationservice:latest ."
+                    withDockerRegistry(credentialsId: 'docker-creds', toolName: 'docker') {
+                        sh "docker pull adijaiswal/recommendationservice:latest"
+                        sh "docker tag adijaiswal/recommendationservice:latest revanthreddych/recommendationservice:latest"
+                        sh "docker build -t revanthreddych/recommendationservice:latest ."
                     }
                 }
             }
@@ -15,8 +17,8 @@ pipeline {
         stage('Push Docker Image') {
             steps {
                 script {
-                    withDockerRegistry(credentialsId: 'docker-cred', toolName: 'docker') {
-                        sh "docker push adijaiswal/recommendationservice:latest "
+                    withDockerRegistry(credentialsId: 'docker-creds', toolName: 'docker') {
+                        sh "docker push revanthreddych/recommendationservice:latest "
                     }
                 }
             }
