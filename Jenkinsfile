@@ -12,7 +12,7 @@ pipeline {
             }
         }
         
-        stage('Push Docker Image') {
+        stage('Push Docker IMAGE') {
             steps {
                 script {
                     withDockerRegistry(credentialsId: 'docker-creds', toolName: 'docker') {
