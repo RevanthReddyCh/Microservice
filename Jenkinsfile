@@ -6,17 +6,21 @@ pipeline {
             steps {
                 script {
                     withDockerRegistry(credentialsId: 'docker-creds', toolName: 'docker') {
-                        sh "docker build -t adijaiswal/frontend:latest ."
+                        sh "docker pull adijaiswal/frontend:latest"
+                        sh "docker tag adijaiswal/frontend:latest revanthreddych/frontend:latest"
+                        sh "docker build -t revanthreddych/frontend:latest ."
                     }
                 }
             }
         }
         
-        stage('Push Docker Image') {
+        stage('Push Docker Image and remove from local') {
             steps {
                 script {
                     withDockerRegistry(credentialsId: 'docker-creds', toolName: 'docker') {
                         sh "docker push revanthreddych/frontend:latest"
+                        sh "docker rmi adijaiswal/frontendservice:latest"
+                        sh "docker rmi revanthreddych/frontendservice:latest"
                     }
                 }
             }
