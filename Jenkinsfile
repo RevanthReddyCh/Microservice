@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     stages {
-        stage('Build & Tag Docker Image') {
+        stage('Pull, Build & Tag Docker Image') {
             steps {
                 script {
                     withDockerRegistry(credentialsId: 'docker-creds', toolName: 'docker') {
@@ -14,7 +14,7 @@ pipeline {
             }
         }
         
-        stage('Push Docker Image') {
+        stage('Push Docker Image & remove from local') {
             steps {
                 script {
                     withDockerRegistry(credentialsId: 'docker-creds', toolName: 'docker') {
