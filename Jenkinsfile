@@ -6,7 +6,9 @@ pipeline {
             steps {
                 script {
                     withDockerRegistry(credentialsId: 'docker-cred', toolName: 'docker') {
-                        sh "docker build -t adijaiswal/shippingservice:latest ."
+                        sh "docker pull adijaiswal/shippingservice:latest"
+                        sh "docker tag adijaiswal/shippingservice:latest revanthreddych/shippingservice:latest"
+                        sh "docker build -t revanthreddych/shippingservice:latest ."
                     }
                 }
             }
@@ -16,7 +18,9 @@ pipeline {
             steps {
                 script {
                     withDockerRegistry(credentialsId: 'docker-cred', toolName: 'docker') {
-                        sh "docker push adijaiswal/shippingservice:latest "
+                        sh "docker push revanthreddych/shippingservice:latest "
+                        sh "docker rmi adijaiswal/shippingservice:latest"
+                        sh "docker rmi revanthreddych/shippingservice:latest"
                     }
                 }
             }
