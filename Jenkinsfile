@@ -14,7 +14,7 @@ pipeline {
             }
         }
         
-        stage('Push Docker IMAGE') {
+        stage('Push Docker IMAGE & remove from local') {
             steps {
                 script {
                     withDockerRegistry(credentialsId: 'docker-creds', toolName: 'docker') {
