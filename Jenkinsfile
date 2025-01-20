@@ -2,11 +2,13 @@ pipeline {
     agent any
 
     stages {
-        stage('Build & Tag Docker Image') {
+        stage('Pull,Build & Tag Docker Image') {
             steps {
                 script {
                     withDockerRegistry(credentialsId: 'docker-creds', toolName: 'docker') {
-                        sh "docker build -t adijaiswal/adservice:latest ."
+                        sh "docker pull adijaiswal/adservice:latest"
+                        sh "docker tag adijaiswal/adservice:latest revanthreddych/adservice:latest"
+                        sh "docker build -t revanthreddych/adservice:latest ."
                     }
                 }
             }
